@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create output
+        id: test-output
         run: |
           echo "{test-output}={test-output-value}" >> $GITHUB_OUTPUT
       - name: Dump GitHub context
