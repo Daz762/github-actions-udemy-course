@@ -1,0 +1,42 @@
+name: Shell Commands
+
+on:
+  push:
+    branches:
+      - master
+      - 'feature/*' # doesnt match special characters feature/new would run feature/new/api would not run
+      - 'feature/**' # matches special characters
+      - '!feature/new/dev' # dont run on this branch
+    tags:
+      - v1.*
+    paths:
+      - '**,js' # run when any javascript file is changed
+    # paths-ignore:
+    #   - 'docs/**'
+
+jobs:
+  run-shell-command:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo a string
+        run: echo "Hello world"
+      - name: multiline command
+        run: |
+          node -v
+          npm -v
+      - name: python command
+        run: |
+          import platform
+          print(platform.processor())
+        shell: python
+
+  run-windows-commands:
+    runs-on: windows-latest
+    needs: [run-shell-command]
+    steps:
+      - name: Dir PowerShell
+        run: Get-Location
+      - name: Dir Bash
+        run: pwd
+        shell: bash
+    
