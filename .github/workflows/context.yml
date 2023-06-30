@@ -8,7 +8,7 @@ jobs:
       - name: create output
         id: test-output
         run: |
-          echo "{test-output}={test-output-value}" >> $GITHUB_OUTPUT
+          echo "test-output=test-output-value" >> $GITHUB_OUTPUT
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -33,3 +33,6 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo '$MATRIX_CONTEXT'
+      - name: display output
+        run: |
+          echo ${{ steps.test-output.outputs.test-output }}
